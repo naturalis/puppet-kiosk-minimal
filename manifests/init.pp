@@ -29,7 +29,7 @@ class kiosk-minimal(
     owner                 => "kiosk",
     group                 => "kiosk",
     mode                  => 444,
-    content               => "deb http://dl.google.com/linux/deb/ stable main",
+    content               => "deb [arch=amd64] http://dl.google.com/linux/deb/ stable main",
     notify                => Exec["Google apt-key"],
   }
 # Add Google's apt-key.
@@ -74,7 +74,7 @@ class kiosk-minimal(
   file { '/home/kiosk/.icons/default/cursors/emptycursor':
     ensure                => present,
     mode                  => '0644',
-    content               => template("kiosk/emptycursor.erb"),
+    content               => template("kiosk-minimal/emptycursor.erb"),
     require               => Exec["make_transparent"]
   }
 # autostart openbox and disable screensaver/blanking + trans cursor
