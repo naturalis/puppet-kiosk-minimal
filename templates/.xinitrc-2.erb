@@ -1,0 +1,11 @@
+# disable screen saver and screen blanking
+xset -dpms &
+xset -dpms s off &
+xset s noblank &
+xset s off &
+
+# xmodmap the keymap
+xmodmap ~/.xmodmaprc
+
+# start openbox window manager
+openbox-session
