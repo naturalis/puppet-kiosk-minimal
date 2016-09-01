@@ -4,9 +4,9 @@ class kiosk_minimal::web(
  {
    # install google-chrome
   file { "/etc/apt/sources.list.d/google.list":
-    owner                 => "kiosk",
-    group                 => "kiosk",
-    mode                  => 444,
+    owner                 => 'kiosk',
+    group                 => 'kiosk',
+    mode                  => '0444',
     content               => "deb [arch=amd64] http://dl.google.com/linux/deb/ stable main",
     notify                => Exec["Google apt-key"],
   }
