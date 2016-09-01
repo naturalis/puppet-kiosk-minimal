@@ -96,6 +96,13 @@ class kiosk_minimal(
     managehome            => true,
     password              => sha1('kiosk'),
   }
+  user { "remote":
+    comment               => "remote user",
+    home                  => "/home/remote",
+    ensure                => present,
+    managehome            => true,
+    password              => sha1('remote'),
+  }
 # startx on login
   file { '/home/kiosk/.profile':
     ensure                => present,
