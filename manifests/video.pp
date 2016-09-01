@@ -1,5 +1,5 @@
 class kiosk_minimal::video(
-  $packages                 = ['mpv','pulseaudio'],
+  $packages                 = ['mpv','alsa'],
   $dirs                     = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
   $start                    = $kiosk_minimal::start,
 )
