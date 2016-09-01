@@ -126,7 +126,7 @@ class kiosk_minimal(
     ssh_authorized_key { 'stargazer@naturalis':
       user                => 'remote',
       type                => 'ssh-rsa',
-      key                 => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+kdUMHaaToYsntgV5vkOvJXDBxUHLxZk7J+J6HtHZ5E7pv6O+d0ksc2aMyHaDl9F7TxUsCATDZErNozFcOx/O5om0SVypxmeewpCtBnXfdNd/HG9sUqvKCOQ/xA+nU+FHI8LtIiQQJ8yUm4GNN2sSRFigY8/GdKMTIpRh/lbBczDkXYjCb6iAV3t8pI7tTtt9z1QnC4vR6sTt7dXTN4ADkmeiIXe1tWkLjk8ptQ0BCjqUgIw1+0f8CisVsiLRJPVANOVg6wR5IlfZWX4XxydOKT/Xl6Bhf517FZC7MGYQ/6bFlUbeIM6svFxqQxcisNGrhpFhZhPXlrs2FHey426d',
+      key                 => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC+kdUMHaaToYsntgV5vkOvJXDBxUHLxZk7J+J6HtHZ5E7pv6O+d0ksc2aMyHaDl9F7TxUsCATDZErNozFcOx/O5om0SVypxmeewpCtBnXfdNd/HG9sUqvKCOQ/xA+nU+FHI8LtIiQQJ8yUm4GNN2sSRFigY8/GdKMTIpRh/lbBczDkXYjCb6iAV3t8pI7tTtt9z1QnC4vR6sTt7dXTN4ADkmeiIXe1tWkLjk8ptQ0BCjqUgIw1+0f8CisVsiLRJPVANOVg6wR5IlfZWX4XxydOKT/Xl6Bhf517FZC7MGYQ/6bFlUbeIM6svFxqQxcisNGrhpFhZhPXlrs2FHey426d',
     }
   }
 }
