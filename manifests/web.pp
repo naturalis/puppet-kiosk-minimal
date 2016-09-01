@@ -1,6 +1,6 @@
 class kiosk-minimal::web(
   $dirs                   = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/google-chrome','/home/kiosk/.config/google-chrome/Default','/home/kiosk/.config/google-chrome/Default/Extensions','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
-  $start                  = "( rm -f /home/kiosk/.config/google-chrome/Default/Preferences && sleep 1 && google-chrome --disable-translate --load-extension=/home/kiosk/.config/google-chrome/Default/Extensions/ --no-first-run --kiosk --allow-file-access-from-files http://www.naturalis.nl/nl/het-museum/agenda/ ) &",
+  $start                  = "http://www.naturalis.nl/nl/het-museum/agenda/",
 )
  {
    # install google-chrome
@@ -73,7 +73,7 @@ class kiosk-minimal::web(
   file { '/home/kiosk/.config/openbox/autostart.sh':
     ensure                => present,
     mode                  => '0644',
-    content               => "${start}",
+    content               => template("kiosk-minimal/autostart-web.erb"),
     require               => [File['/home/kiosk/.config/openbox']]
     }
  }
