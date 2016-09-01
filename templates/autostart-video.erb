@@ -1,0 +1,6 @@
+# Run XDG autostart things. By default don't run anything desktop-specific
+# DESKTOP_ENV=""
+# if which /usr/lib/openbox/xdg-autostart >/dev/null; then
+#  /usr/lib/openbox/xdg-autostart $DESKTOP_ENV
+# fi
+mpv --fs --hwdec=vaapi --vo=vaapi --loop=inf --saturation=-35 --no-osc  <%= @start %> &

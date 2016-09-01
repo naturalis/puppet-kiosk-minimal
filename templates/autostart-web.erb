@@ -1,0 +1,6 @@
+# Run XDG autostart things. By default don't run anything desktop-specific
+# DESKTOP_ENV=""
+# if which /usr/lib/openbox/xdg-autostart >/dev/null; then
+#  /usr/lib/openbox/xdg-autostart $DESKTOP_ENV
+# fi
+( rm -f /home/kiosk/.config/google-chrome/Default/Preferences && sleep 1 && google-chrome --disable-translate --load-extension=/home/kiosk/.config/google-chrome/Default/Extensions/ --no-first-run --kiosk --allow-file-access-from-files <%= @start %> ) &
