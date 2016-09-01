@@ -101,14 +101,18 @@ class kiosk_minimal(
     ensure                => present,
     mode                  => '0644',
     content               => template("kiosk_minimal/.profile.erb"),
-    require               => [User['kiosk']]
+    require               => [User['kiosk']],
   }
 # autologin kiosk user
+  file { '/etc/systemd/system/getty@tty1.service.d':
+    ensure                => directory,
+    mode                  => '0755',
+  }
   file { '/etc/systemd/system/getty@tty1.service.d/override.conf':
     ensure                => present,
     mode                  => '0644',
     content               => template("kiosk_minimal/override.conf.erb"),
-    require               => [User['kiosk']]
+    require               => [User['kiosk'], File['/etc/systemd/system/getty@tty1.service.d']],
   }
   if ($enable_remote) {
     # setup remote user
