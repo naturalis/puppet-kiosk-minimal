@@ -1,4 +1,4 @@
-class kiosk-minimal::video(
+class kiosk_minimal::video(
   $dirs                     = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
   $start                    = '/home/kiosk/test.avi /home/kiosk/test2.avi',
 )
@@ -19,7 +19,7 @@ class kiosk-minimal::video(
     file { '/home/kiosk/.config/openbox/autostart.sh':
       ensure                => present,
       mode                  => '0644',
-      content               => template("kiosk-minimal/autostart-video.erb"),
+      content               => template("kiosk_minimal/autostart-video.erb"),
       require               => [File['/home/kiosk/.config/openbox']]
     }
  }

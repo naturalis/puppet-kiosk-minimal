@@ -1,4 +1,4 @@
-class kiosk-minimal::web(
+class kiosk_minimal::web(
   $dirs                   = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/google-chrome','/home/kiosk/.config/google-chrome/Default','/home/kiosk/.config/google-chrome/Default/Extensions','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
   $start                  = "http://www.naturalis.nl/nl/het-museum/agenda/",
 )
@@ -41,7 +41,7 @@ class kiosk-minimal::web(
     owner                 => 'kiosk',
     group                 => 'kiosk',
     mode                  => '0600',
-    content               => template("kiosk-minimal/chrome-config.erb"),
+    content               => template("kiosk_minimal/chrome-config.erb"),
     require               => [User['kiosk']]
   }
 # improve scrollbar
@@ -50,7 +50,7 @@ class kiosk-minimal::web(
     owner                 => 'kiosk',
     group                 => 'kiosk',
     mode                  => '0755',
-    content               => template("kiosk-minimal/chrome-manifest.erb"),
+    content               => template("kiosk_minimal/chrome-manifest.erb"),
     require               => [Package['google-chrome-stable'],File[$dirs]]
   }
   file { '/home/kiosk/.config/google-chrome/Default/Extensions/Custom.css':
@@ -58,7 +58,7 @@ class kiosk-minimal::web(
     owner                 => 'kiosk',
     group                 => 'kiosk',
     mode                  => '0755',
-    content               => template("kiosk-minimal/chrome-css.erb"),
+    content               => template("kiosk_minimal/chrome-css.erb"),
     require               => [Package['google-chrome-stable'],File[$dirs]]
   }
   file { '/home/kiosk/.config/google-chrome/Default/Extensions/Custom.js':
@@ -66,14 +66,14 @@ class kiosk-minimal::web(
     owner                 => 'kiosk',
     group                 => 'kiosk',
     mode                  => '0755',
-    content               => template("kiosk-minimal/chrome-js.erb"),
+    content               => template("kiosk_minimal/chrome-js.erb"),
     require               => [Package['google-chrome-stable'],File[$dirs]]
   }
 # autostart chrome
   file { '/home/kiosk/.config/openbox/autostart.sh':
     ensure                => present,
     mode                  => '0644',
-    content               => template("kiosk-minimal/autostart-web.erb"),
+    content               => template("kiosk_minimal/autostart-web.erb"),
     require               => [File['/home/kiosk/.config/openbox']]
     }
  }

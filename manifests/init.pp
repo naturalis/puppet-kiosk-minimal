@@ -1,4 +1,4 @@
-# == Class: kiosk-minimal
+# == Class: kiosk_minimal
 #
 # Puppet module to install chrome and local proxy
 #
@@ -10,7 +10,7 @@
 #
 # Copyright 2014
 #
-class kiosk-minimal(
+class kiosk_minimal(
   $packages               = ['xorg','openbox','build-essential'],
   $transparent_cursor     = true,
   $disable_keys           = false,
@@ -25,10 +25,10 @@ class kiosk-minimal(
   }
   if $function == 'video'
   {
-    include kiosk-minimal::video
+    include kiosk_minimal::video
   }
   else {
-    include kiosk-minimal::web
+    include kiosk_minimal::web
   }
   if ($transparent_cursor )
   {
@@ -56,7 +56,7 @@ class kiosk-minimal(
     file { '/home/kiosk/.icons/default/cursors/emptycursor':
       ensure              => present,
       mode                => '0644',
-      content             => template("kiosk-minimal/emptycursor.erb"),
+      content             => template("kiosk_minimal/emptycursor.erb"),
       require             => Exec["make_transparent"]
     }
 # autostart openbox and disable screensaver/blanking + trans cursor
@@ -64,7 +64,7 @@ class kiosk-minimal(
       ensure              => present,
       mode                => '0644',
       owner               => 'kiosk',
-      content             => template("kiosk-minimal/.xinitrc.erb"),
+      content             => template("kiosk_minimal/.xinitrc.erb"),
       require             => [User['kiosk']]
     }
   } else
@@ -74,7 +74,7 @@ class kiosk-minimal(
       ensure              => present,
       mode                => '0644',
       owner               => 'kiosk',
-      content             => template("kiosk-minimal/.xinitrc-2.erb"),
+      content             => template("kiosk_minimal/.xinitrc-2.erb"),
       require             => [User['kiosk']]
     }
   }
@@ -84,7 +84,7 @@ class kiosk-minimal(
       ensure              => present,
       mode                => '0644',
       owner               => 'kiosk',
-      content             => template("kiosk-minimal/.xmodmaprc.erb"),
+      content             => template("kiosk_minimal/.xmodmaprc.erb"),
       require             => [User['kiosk']]
     }
   }
@@ -100,14 +100,14 @@ class kiosk-minimal(
   file { '/home/kiosk/.profile':
     ensure                => present,
     mode                  => '0644',
-    content               => template("kiosk-minimal/.profile.erb"),
+    content               => template("kiosk_minimal/.profile.erb"),
     require               => [User['kiosk']]
   }
 # autologin kiosk user
   file { '/etc/systemd/system/getty@tty1.service.d/override.conf':
     ensure                => present,
     mode                  => '0644',
-    content               => template("kiosk-minimal/override.conf.erb"),
+    content               => template("kiosk_minimal/override.conf.erb"),
     require               => [User['kiosk']]
   }
   if ($enable_remote) {
