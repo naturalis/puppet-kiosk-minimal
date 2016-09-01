@@ -1,14 +1,33 @@
 kiosk-minimal
+===================
 
-This is the kiosk module for minimal functionality
+Puppet module to install a simple kiosk browser.It installs bare Xorg, Openbox window manager and:
 
-License
--------
+kiosk-minimal::video = MPV package and auto starting local video
+kiosk-minimal::web = Chrome browser gpu forced with transparent mouse cursor
 
+Parameters
+-------------
+All parameters are read from defaults in init.pp and can be overwritten by The foreman.
 
-Contact
--------
+```
+kiosk-minimal::video >
+$packages                             = ['xorg','openbox','openjdk-7-jre','p7zip-full','build-essential'],
 
+kiosk-minimal::web >
+$packages                             = ['xorg','openbox','openjdk-7-jre','p7zip-full','build-essential'],
+```
+Limitations
+-------------
+This module has been built on and tested against Puppet 4.
 
-Support
--------
+The module has been tested on
+- Ubuntu Server 16.04.
+
+Dependencies
+-------------
+- stdlib
+
+Authors
+-------------
+<foppe.pieters@naturalis.nl>
