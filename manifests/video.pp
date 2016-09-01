@@ -1,6 +1,6 @@
 class kiosk-minimal::video(
-  $dirs                                 = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
-  $start                                = 'mpv --fs --hwdec=vaapi --vo=vaapi --loop=inf --saturation=-35 --no-osc /home/kiosk/test.avi /home/kiosk/test2.avi',
+  $dirs                     = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
+  $start                    = 'mpv --fs --hwdec=vaapi --vo=vaapi --loop=inf --saturation=-35 --no-osc /home/kiosk/test.avi /home/kiosk/test2.avi',
 )
  {
   # install packages
