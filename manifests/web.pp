@@ -1,14 +1,14 @@
 class kiosk_minimal::web(
   $dirs                   = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/google-chrome','/home/kiosk/.config/google-chrome/Default','/home/kiosk/.config/google-chrome/Default/Extensions','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
-  $start                  = "http://www.naturalis.nl/nl/het-museum/agenda/",
-  $rotation               = "normal",
+  $start                  = $kiosk_minimal::start,
+  $start                  = $kiosk_minimal::rotation,
 )
  {
    # install google-chrome
   file { "/etc/apt/sources.list.d/google.list":
-    owner                 => "kiosk",
-    group                 => "kiosk",
-    mode                  => 444,
+    owner                 => 'kiosk',
+    group                 => 'kiosk',
+    mode                  => '0444',
     content               => "deb [arch=amd64] http://dl.google.com/linux/deb/ stable main",
     notify                => Exec["Google apt-key"],
   }

@@ -1,6 +1,7 @@
 class kiosk_minimal::video(
   $dirs                     = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
-  $start                    = '/home/kiosk/test.avi /home/kiosk/test2.avi',
+  $start                  = $kiosk_minimal::start,
+  $start                  = $kiosk_minimal::rotation,
 )
  {
   # install packages

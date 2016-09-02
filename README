@@ -3,19 +3,30 @@ kiosk-minimal
 
 Puppet module to install a simple kiosk browser.It installs bare Xorg, Openbox window manager and:
 
-kiosk-minimal::video = MPV package and auto starting local video
-kiosk-minimal::web = Chrome browser gpu forced with transparent mouse cursor
+kiosk-minimal::video = MPV package and auto starting local and remote video or presentations. (even from drive)
+kiosk-minimal::web = Chrome browser gpu forced with transparent mouse cursor and auto starting websites.
 
 Parameters
 -------------
 All parameters are read from defaults in init.pp and can be overwritten by The foreman.
 
 ```
+kiosk-minimal >
+$packages               = ['xorg','openbox','build-essential'],
+$transparent_cursor     = true,
+$disable_keys           = false,
+$enable_remote          = true,
+$function               = 'video',
+$start                  = undef,
+
 kiosk-minimal::video >
-$packages                             = ['xorg','openbox','openjdk-7-jre','p7zip-full','build-essential'],
+$packages                 = ['mpv','alsa'],
+$dirs                     = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
+$start                    = $kiosk_minimal::start,
 
 kiosk-minimal::web >
-$packages                             = ['xorg','openbox','openjdk-7-jre','p7zip-full','build-essential'],
+$dirs                   = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/google-chrome','/home/kiosk/.config/google-chrome/Default','/home/kiosk/.config/google-chrome/Default/Extensions','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
+$start                  = $kiosk_minimal::start,
 ```
 Limitations
 -------------
