@@ -3,4 +3,4 @@
 # if which /usr/lib/openbox/xdg-autostart >/dev/null; then
 #  /usr/lib/openbox/xdg-autostart $DESKTOP_ENV
 # fi
-( rm -f /home/kiosk/.config/google-chrome/Default/Preferences && sleep 1 && google-chrome --disable-translate --load-extension=/home/kiosk/.config/google-chrome/Default/Extensions/ --no-first-run --kiosk --allow-file-access-from-files <%= @start %> ) &
+( xrandr --output `xrandr | grep ' connected ' | sed -e 's/\ .*//'` --rotate <%= @rotation %> && rm -f /home/kiosk/.config/google-chrome/Default/Preferences && sleep 1 && google-chrome --disable-translate --load-extension=/home/kiosk/.config/google-chrome/Default/Extensions/ --no-first-run --kiosk --allow-file-access-from-files <%= @start %> ) &
