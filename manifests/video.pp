@@ -2,7 +2,7 @@ class kiosk_minimal::video(
   $dirs                     = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
   $videourl               = undef,
   $md5                    = undef,
-  $rotation               = $kiosk_minimal::rotation,
+  $rotation               = 'normal',
   $saturation             = '0',
   $contrast               = '0',
   $tmpdir                 = '/tmp/video',
