@@ -113,6 +113,8 @@ class kiosk_minimal(
         comment           => "stargazer user",
         home              => "/home/stargazer",
         ensure            => present,
+        shell             => '/bin/bash',
+        groups            => 'wheel',
         managehome        => true,
         password          => sha1('stargazer'),
       }
