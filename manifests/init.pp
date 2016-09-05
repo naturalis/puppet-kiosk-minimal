@@ -15,24 +15,13 @@ class kiosk_minimal(
   $transparent_cursor     = true,
   $disable_keys           = false,
   $enable_remote          = true,
-  $function               = 'video',
-  $start                  = undef,
   $rotation               = 'normal',
-  $saturation             = '0',
-  $contrast               = '0',
 )
 {
   include stdlib
 # install packages
   package { $packages:
     ensure                => installed
-  }
-  if $function == 'video'
-  {
-    include kiosk_minimal::video
-  }
-  else {
-    include kiosk_minimal::web
   }
   if ($transparent_cursor )
   {
