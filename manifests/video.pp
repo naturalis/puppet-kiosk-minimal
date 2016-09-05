@@ -1,7 +1,7 @@
 class kiosk_minimal::video(
   $dirs                     = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
   $videourl               = undef,
-  $videoname              = undef,
+  $md5                    = undef,
   $rotation               = $kiosk_minimal::rotation,
   $saturation             = '0',
   $contrast               = '0',
@@ -19,26 +19,30 @@ class kiosk_minimal::video(
       group                 => 'kiosk',
       mode                  => '0644'
     }
-    # Get video file from Drive
-    #file { '/home/kiosk/$videoname':
-    #  ensure                => 'file',
-    #  require               => User['kiosk'],
-    #  owner                 => 'kiosk',
-    #  group                 => 'kiosk',
-    #  mode                  => '0644',
-    #  source                => $video,
-    #}
-    exec { "/usr/bin/wget --timestamping -O $videoname $videourl":
-      alias                 => "videolatest",
-      cwd                   => "/home/kiosk",
-    }
 
-    file { "/home/kiosk/$videoname":
-      require               => [ User['kiosk'], Exec["videolatest"] ],
+    file { "/home/kiosk/video-001.md5":
+      require               => User['kiosk'],
       owner                 => 'kiosk',
       group                 => 'kiosk',
       mode                  => '0644',
-      alias                 => "video",
+      content               => $md5,
+    }
+
+    # Get Google Drive download URL
+    exec { "getdriveurl":
+      command               => "curl -c /tmp/cookies ${videourl} > /tmp/drive.html",
+      cwd                   => "/tmp",
+      creates               => "/tmp/drive.html",
+      subscribe             => File['/home/kiosk/video-001.md5'],
+      refreshonly           => true,
+      notify                => Exec['getvideo']
+    }
+
+    exec { "getvideo":
+      command               => "curl -v -L -b /tmp/cookies 'https://drive.google.com$(cat /tmp/drive.html | grep -Po 'uc-download-link' [^>]* href='\\K[^']*' | sed 's/\\&amp;/\\&/g')' > /home/kiosk/video-001.mp4",
+      creates               => "/home/kiosk/video-001.mp4",
+      user                  => 'kiosk',
+      refreshonly           => true,
     }
 
   # autostart chrome
