@@ -6,6 +6,12 @@ class kiosk_minimal::video(
   $saturation             = '0',
   $contrast               = '0',
   $tmpdir                 = '/tmp/video',
+  $video_hash             = [ {'video-001'       =>
+                               {'video_name'     => 'video-001.mp4',
+                               'video_url'       => 'changeme',
+                              },
+                             },
+                            ],
 )
  {
     # install packages
@@ -20,13 +26,13 @@ class kiosk_minimal::video(
       group                 => 'kiosk',
       mode                  => '0644'
     }
-
-    file { "/home/kiosk/video-001.md5":
+    create_resources('kiosk_minimal::video', $video_hash)
+    file { "/home/kiosk/${video_name}.md5":
       require               => User['kiosk'],
       owner                 => 'kiosk',
       group                 => 'kiosk',
       mode                  => '0644',
-      content               => "${md5}  ${tmpdir}/video-001.mp4",
+      content               => "${md5}  ${tmpdir}/${video_name}.mp4",
     }
     # Bash script to download video
     file { '/home/kiosk/downloadvideo.sh':
@@ -39,7 +45,7 @@ class kiosk_minimal::video(
       require               => File['/home/kiosk/downloadvideo.sh'],
       command               => "/home/kiosk/downloadvideo.sh ${videourl}",
       refreshonly           => true,
-      subscribe             => File['/home/kiosk/video-001.md5'],
+      subscribe             => File['/home/kiosk/${video_name}.md5'],
     }
 
   # autostart chrome
