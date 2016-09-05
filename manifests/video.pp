@@ -39,7 +39,7 @@ class kiosk_minimal::video(
     }
 
     exec { "getvideo":
-      command               => "curl -v -L -b /tmp/cookies 'https://drive.google.com$(cat /tmp/drive.html | grep -Po 'uc-download-link' [^>]* href='\\K[^']*' | sed 's/\\&amp;/\\&/g')' > /home/kiosk/video-001.mp4",
+      command               => "/usr/bin/curl -v -L -b /tmp/cookies 'https://drive.google.com$(cat /tmp/drive.html | grep -Po 'uc-download-link' [^>]* href='\\K[^']*' | sed 's/\\&amp;/\\&/g')' > /home/kiosk/video-001.mp4",
       creates               => "/home/kiosk/video-001.mp4",
       user                  => 'kiosk',
       refreshonly           => true,
