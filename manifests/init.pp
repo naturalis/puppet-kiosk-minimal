@@ -17,7 +17,7 @@ class kiosk_minimal(
   $enable_remote          = true,
   $function               = 'video',
   $start                  = undef,
-  $rotation               = 'normal',
+  $rotation               = 'normal',\
 )
 {
   include stdlib

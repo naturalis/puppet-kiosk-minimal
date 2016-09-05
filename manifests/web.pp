@@ -1,7 +1,7 @@
 class kiosk_minimal::web(
   $dirs                   = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/google-chrome','/home/kiosk/.config/google-chrome/Default','/home/kiosk/.config/google-chrome/Default/Extensions','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
   $start                  = $kiosk_minimal::start,
-  $start                  = $kiosk_minimal::rotation,
+  $rotation               = $kiosk_minimal::rotation,
 )
  {
    # install google-chrome
