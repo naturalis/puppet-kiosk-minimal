@@ -30,7 +30,7 @@ class kiosk_minimal::video(
 
     # Get Google Drive download URL
     exec { "getdriveurl":
-      command               => "curl -c /tmp/cookies ${videourl} > /tmp/drive.html",
+      command               => "/usr/bin/curl -c /tmp/cookies ${videourl} > /tmp/drive.html",
       cwd                   => "/tmp",
       creates               => "/tmp/drive.html",
       subscribe             => File['/home/kiosk/video-001.md5'],
