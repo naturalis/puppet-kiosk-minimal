@@ -20,29 +20,25 @@ class kiosk_minimal::video(
       mode                  => '0644'
     }
 
-    file { "/home/kiosk/video-001.md5":
+    file { "/home/kiosk/video.md5":
       require               => User['kiosk'],
       owner                 => 'kiosk',
       group                 => 'kiosk',
       mode                  => '0644',
-      content               => $md5,
+      content               => "${md5}  /home/kiosk/video-001.mp4",
+    }
+    # Bash script to download video
+    file { '/home/kiosk/downloadvideo.sh':
+      ensure                => present,
+      mode                  => '0755',
+      content               => template("kiosk_minimal/downloadvideo.sh.erb"),
     }
 
-    # Get Google Drive download URL
-    exec { "getdriveurl":
-      command               => "/usr/bin/curl -c /tmp/cookies ${videourl} > /tmp/drive.html",
-      cwd                   => "/tmp",
-      creates               => "/tmp/drive.html",
-      subscribe             => File['/home/kiosk/video-001.md5'],
+    exec { "downloadvideo":
+      require               => File['/home/kiosk/downloadvideo.sh']
+      command               => "/home/kiosk/downloadvideo.sh ${videourl}",
       refreshonly           => true,
-      notify                => Exec['getvideo']
-    }
-
-    exec { "getvideo":
-      command               => "/usr/bin/curl -v -L -b /tmp/cookies 'https://drive.google.com$(cat /tmp/drive.html | grep -Po 'uc-download-link' [^>]* href='\\K[^']*' | sed 's/\\&amp;/\\&/g')' > /home/kiosk/video-001.mp4",
-      creates               => "/home/kiosk/video-001.mp4",
-      user                  => 'kiosk',
-      refreshonly           => true,
+      subscribe             => File['/home/kiosk/video.md5'],
     }
 
   # autostart chrome

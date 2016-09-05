@@ -1,0 +1,16 @@
+#!/bin/bash
+
+ERRORLOG=/var/log/kiosk.log
+
+mkdir <%= @tmpdir %>
+/usr/bin/curl -c /tmp/cookies "$1" > <%= @tmpdir %>/drive.html
+/usr/bin/curl -v -L -b /tmp/cookies "https://drive.google.com$(cat <%= @tmpdir %>/drive.html | grep -Po 'uc-download-link" [^>]* href="\K[^"]*' | sed 's/\&amp;/\&/g')" > <%= @tmpdir %>/video-001.mp4
+if /usr/bin/md5sum --status -c /home/kiosk/video-001.md5; then
+    # The MD5 sum matched
+   mv <%= @tmpdir %>/video-001.mp4 /home/kiosk/
+   echo -e "Video has been validated and moved! \n \n" >> $ERRORLOG
+else
+    # The MD5 sum didn't match
+    echo -e "[Error] $time - Video is not valid" >> $ERRORLOG
+fi
+exit 0
