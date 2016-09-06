@@ -4,9 +4,10 @@ class kiosk_minimal::video(
   $video1_md5              = undef,
   $video2_url              = undef,
   $video2_md5              = undef,
-  $rotation               = 'normal',
-  $saturation             = '0',
-  $contrast               = '0',
+  $rotation                = 'normal',
+  $saturation              = '0',
+  $contrast                = '0',
+  $brightness              = '0',
   $tmpdir                 = '/tmp/video',
 )
  {
