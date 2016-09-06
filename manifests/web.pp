@@ -3,6 +3,7 @@ class kiosk_minimal::web(
   $webpage                = undef,
   $rotation               = 'normal',
   $resolution             = undef,
+  $zoom                   = '1.0',
 )
  {
    # install google-chrome
