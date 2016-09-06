@@ -42,9 +42,9 @@ class kiosk_minimal::video(
       }
 
       # Download video1 after MD5 has changed
-      exec { "downloadvideo":
+      exec { "downloadvideo1":
         require               => File['/home/kiosk/downloadvideo.sh'],
-        command               => "/home/kiosk/downloadvideo.sh ${urlvideo1} video1",
+        command               => "/home/kiosk/downloadvideo.sh '${urlvideo1}' 'video1'",
         refreshonly           => true,
         subscribe             => File['/home/kiosk/video1.md5'],
       }
@@ -63,9 +63,9 @@ class kiosk_minimal::video(
       }
 
       # Download video2 after MD5 has changed
-      exec { "downloadvideo":
+      exec { "downloadvideo2":
         require               => File['/home/kiosk/downloadvideo.sh'],
-        command               => "/home/kiosk/downloadvideo.sh ${urlvideo2} video2",
+        command               => "/home/kiosk/downloadvideo.sh '${urlvideo2}' 'video2'",
         refreshonly           => true,
         subscribe             => File['/home/kiosk/video2.md5'],
       }
