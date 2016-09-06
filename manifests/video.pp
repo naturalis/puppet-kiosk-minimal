@@ -1,5 +1,5 @@
 class kiosk_minimal::video(
-  $dirs                     = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
+  $dirs                    = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
   $video1_url              = undef,
   $video1_md5              = undef,
   $video2_url              = undef,
@@ -8,7 +8,8 @@ class kiosk_minimal::video(
   $saturation              = '0',
   $contrast                = '0',
   $brightness              = '0',
-  $tmpdir                 = '/tmp/video',
+  $volume                  = undef,
+  $tmpdir                  = '/tmp/video',
 )
  {
     # Install packages
