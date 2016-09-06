@@ -1,9 +1,9 @@
 class kiosk_minimal::video(
   $dirs                     = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
-  $urlvideo1              = undef,
-  $md5video1              = undef,
-  $urlvideo2              = undef,
-  $md5video2              = undef,
+  $video1_url              = undef,
+  $video1_md5              = undef,
+  $video2_url              = undef,
+  $video2_md5              = undef,
   $rotation               = 'normal',
   $saturation             = '0',
   $contrast               = '0',
@@ -31,27 +31,27 @@ class kiosk_minimal::video(
     }
 
     # If defined get video 1
-    if $urlvideo1 {
+    if $video1_url {
       # Create MD5 file for video1
       file { "/home/kiosk/video1.md5":
         require               => User['kiosk'],
         owner                 => 'kiosk',
         group                 => 'kiosk',
         mode                  => '0644',
-        content               => "${md5video1}  ${tmpdir}/video1.mp4",
+        content               => "${video1_md5}  ${tmpdir}/video1.mp4",
       }
 
       # Download video1 after MD5 has changed
       exec { "downloadvideo1":
         require               => File['/home/kiosk/downloadvideo.sh'],
-        command               => "/home/kiosk/downloadvideo.sh '${urlvideo1}' 'video1'",
+        command               => "/home/kiosk/downloadvideo.sh '${video1_url}' 'video1'",
         refreshonly           => true,
         subscribe             => File['/home/kiosk/video1.md5'],
       }
     }
 
     # If defined get video 2
-    if $urlvideo2 {
+    if $video2_url {
       # Get Video 2
       # Create MD5 file for video1
       file { "/home/kiosk/video2.md5":
@@ -59,13 +59,13 @@ class kiosk_minimal::video(
         owner                 => 'kiosk',
         group                 => 'kiosk',
         mode                  => '0644',
-        content               => "${md5video2}  ${tmpdir}/video2.mp4",
+        content               => "${video2_md5}  ${tmpdir}/video2.mp4",
       }
 
       # Download video2 after MD5 has changed
       exec { "downloadvideo2":
         require               => File['/home/kiosk/downloadvideo.sh'],
-        command               => "/home/kiosk/downloadvideo.sh '${urlvideo2}' 'video2'",
+        command               => "/home/kiosk/downloadvideo.sh '${video2_url}' 'video2'",
         refreshonly           => true,
         subscribe             => File['/home/kiosk/video2.md5'],
       }
