@@ -1,18 +1,20 @@
 class kiosk_minimal::video(
   $dirs                     = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
-  $videourl               = undef,
-  $md5                    = undef,
+  $urlvideo1              = undef,
+  $md5video1              = undef,
+  $urlvideo2              = undef,
+  $md5video2              = undef,
   $rotation               = 'normal',
   $saturation             = '0',
   $contrast               = '0',
   $tmpdir                 = '/tmp/video',
 )
  {
-    # install packages
+    # Install packages
     package { 'mpv':
       ensure                => installed
     }
-    # make userdirs
+    # Make userdirs
     file { $dirs:
       ensure                => 'directory',
       require               => User['kiosk'],
@@ -21,13 +23,6 @@ class kiosk_minimal::video(
       mode                  => '0644'
     }
 
-    file { "/home/kiosk/video-001.md5":
-      require               => User['kiosk'],
-      owner                 => 'kiosk',
-      group                 => 'kiosk',
-      mode                  => '0644',
-      content               => "${md5}  ${tmpdir}/video-001.mp4",
-    }
     # Bash script to download video
     file { '/home/kiosk/downloadvideo.sh':
       ensure                => present,
@@ -35,14 +30,48 @@ class kiosk_minimal::video(
       content               => template("kiosk_minimal/downloadvideo.sh.erb"),
     }
 
-    exec { "downloadvideo":
-      require               => File['/home/kiosk/downloadvideo.sh'],
-      command               => "/home/kiosk/downloadvideo.sh ${videourl}",
-      refreshonly           => true,
-      subscribe             => File['/home/kiosk/video-001.md5'],
+    # If defined get video 1
+    if $urlvideo1 {
+      # Create MD5 file for video1
+      file { "/home/kiosk/video1.md5":
+        require               => User['kiosk'],
+        owner                 => 'kiosk',
+        group                 => 'kiosk',
+        mode                  => '0644',
+        content               => "${md5video1}  ${tmpdir}/video1.mp4",
+      }
+
+      # Download video1 after MD5 has changed
+      exec { "downloadvideo":
+        require               => File['/home/kiosk/downloadvideo.sh'],
+        command               => "/home/kiosk/downloadvideo.sh ${urlvideo1} video1",
+        refreshonly           => true,
+        subscribe             => File['/home/kiosk/video1.md5'],
+      }
     }
 
-  # autostart chrome
+    # If defined get video 2
+    if $urlvideo2 {
+      # Get Video 2
+      # Create MD5 file for video1
+      file { "/home/kiosk/video2.md5":
+        require               => User['kiosk'],
+        owner                 => 'kiosk',
+        group                 => 'kiosk',
+        mode                  => '0644',
+        content               => "${md5video2}  ${tmpdir}/video2.mp4",
+      }
+
+      # Download video2 after MD5 has changed
+      exec { "downloadvideo":
+        require               => File['/home/kiosk/downloadvideo.sh'],
+        command               => "/home/kiosk/downloadvideo.sh ${urlvideo2} video2",
+        refreshonly           => true,
+        subscribe             => File['/home/kiosk/video2.md5'],
+      }
+    }
+
+  # Autostart MPV and loop the video's
     file { '/home/kiosk/.config/openbox/autostart.sh':
       ensure                => present,
       mode                  => '0644',
