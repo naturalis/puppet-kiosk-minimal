@@ -14,6 +14,10 @@ class kiosk_minimal::video(
     package { 'mpv':
       ensure                => installed
     }
+    # install alsa for audio
+    package { 'alsa':
+      ensure                => installed
+    }
     # Make userdirs
     file { $dirs:
       ensure                => 'directory',
