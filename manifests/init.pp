@@ -23,7 +23,7 @@ class kiosk_minimal(
   package { $packages:
     ensure                => installed
   }
-  if ($transparent_cursor )
+  if ($transparent_cursor == true)
   {
 # download and untar transparent cursor
     exec { 'download_transparent':
@@ -71,7 +71,7 @@ class kiosk_minimal(
       require             => [User['kiosk']]
     }
   }
-  if ($disable_keys) {
+  if ($disable_keys == true) {
 # disable special keys
     file { '/home/kiosk/.xmodmaprc':
       ensure              => present,
@@ -107,7 +107,7 @@ class kiosk_minimal(
     content               => template("kiosk_minimal/override.conf.erb"),
     require               => [User['kiosk'], File['/etc/systemd/system/getty@tty1.service.d']],
   }
-  if ($enable_remote) {
+  if ($enable_remote == true) {
     # setup remote user
       user { "stargazer":
         comment           => "stargazer user",
