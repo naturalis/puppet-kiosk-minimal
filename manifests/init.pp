@@ -15,6 +15,8 @@ class kiosk_minimal(
   $transparent_cursor     = true,
   $disable_keys           = false,
   $enable_remote          = true,
+  $disable_pinch_zoom     = true,
+  $disable_swipe_navigate = true,
   $rotation               = 'normal',
 )
 {
