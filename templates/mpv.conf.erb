@@ -6,26 +6,26 @@
 #osd-font-size=16
 
 #Vide Output:
-vo=<%= @video_output %>
+<% if @video_output != 'undef' %>vo=<%= @video_output %><% end %>
 
 # vo=opengl:backend=x11egl:interpolation:tscale=triangle
 # vo=opengl-hq:backend=x11:interpolation:tscale=catmull_rom
 # vo=opengl-hq:scaler-resizes-only:scale=spline36:cscale=oversample:interpolation:temporal-dither:gamma=0.9:icc-profile-auto
 
 #Video filter -> restrict color space
- <% if @rgb_color != 'undef' %>vf=format=fmt=rgb0<%= @rgb_color %><% end %>
+<% if @rgb_color != 'undef' %>vf=format=fmt=rgb0<% end %>
 
 #Hardware video decoding:
-hwdec=<%= @hardware_decoder %>
+<% if @hardware_decoder != 'undef' %>hwdec=<%= @hardware_decoder %><% end %>
 
 #Keep syncing:
-<% if @av_sync != 'undef' %>video-sync=display-resample<%= @av_sync %><% end %>
+<% if @av_sync != 'undef' %>video-sync=display-resample<% end %>
 
 # Number of threads to use for decoding
-vd-lavc-threads=<%= @vd_threads %>
+<% if @vd_threads != 'undef' %>vd-lavc-threads=<%= @vd_threads %><% end %>
 
 #Fullscreen
-fs=<%= @fullscreen %>
+<% if @fullscreen != 'undef' %>fs=<%= @fullscreen %><% end %>
 
 #Caching
 cache=auto
