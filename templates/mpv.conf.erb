@@ -13,13 +13,13 @@ vo=<%= @video_output %>
 # vo=opengl-hq:scaler-resizes-only:scale=spline36:cscale=oversample:interpolation:temporal-dither:gamma=0.9:icc-profile-auto
 
 #Video filter -> restrict color space
- <% if @rgb_color != 'undef' %>vf=format=fmt=rgb0<%= @rgb_color %>
+ <% if @rgb_color != 'undef' %>vf=format=fmt=rgb0<%= @rgb_color %><% end %>
 
 #Hardware video decoding:
 hwdec=<%= @hardware_decoder %>
 
 #Keep syncing:
-<% if @av_sync != 'undef' %>video-sync=display-resample<%= @av_sync %>
+<% if @av_sync != 'undef' %>video-sync=display-resample<%= @av_sync %><% end %>
 
 # Number of threads to use for decoding
 vd-lavc-threads=<%= @vd_threads %>
