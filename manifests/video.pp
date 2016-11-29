@@ -8,6 +8,12 @@ class kiosk_minimal::video(
   $saturation              = '0',
   $contrast                = '0',
   $brightness              = '0',
+  $video_output            = 'vaapi',
+  $rgb_color               = undef,
+  $hardware_decoder        = 'vaapi',
+  $av_sync                 = undef,
+  $vd_threads              = '0',
+  $fullscreen              = 'yes',
   $volume                  = undef,
   $tmpdir                  = '/tmp/video',
 )
@@ -36,6 +42,12 @@ class kiosk_minimal::video(
       content               => template("kiosk_minimal/downloadvideo.sh.erb"),
     }
 
+    #set mpv config
+    file { "/etc/mpv/mpv.conf":
+      require               => Package['mpv'],
+      mode                  => '0644',
+      content               => template("kiosk_minimal/mpv.conf.erb"),
+    }
     # If defined get video 1
     if $video1_url {
       # Create MD5 file for video1
