@@ -1,21 +1,21 @@
 class kiosk_minimal::video(
-  $dirs                    = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
-  $video1_url              = undef,
-  $video1_md5              = undef,
-  $video2_url              = undef,
-  $video2_md5              = undef,
-  $rotation                = 'normal',
-  $saturation              = '0',
-  $contrast                = '0',
-  $brightness              = '0',
-  $video_output            = 'vaapi',
-  $rgb_color               = undef,
-  $hardware_decoder        = 'vaapi',
-  $av_sync                 = undef,
-  $vd_threads              = '0',
-  $fullscreen              = 'yes',
-  $volume                  = undef,
-  $tmpdir                  = '/tmp/video',
+  $videodirs               = $kiosk_minimal::params::packages
+  $video1_url              = $kiosk_minimal::params::video1_url,
+  $video1_md5              = $kiosk_minimal::params::video1_md5,
+  $video2_url              = $kiosk_minimal::params::video2_url,
+  $video2_md5              = $kiosk_minimal::params::video2_md5,
+  $rotation                = $kiosk_minimal::params::rotation,
+  $saturation              = $kiosk_minimal::params::saturation,
+  $contrast                = $kiosk_minimal::params::contrast,
+  $brightness              = $kiosk_minimal::params::brightness,
+  $video_output            = $kiosk_minimal::params::video_output,
+  $rgb_color               = $kiosk_minimal::params::rgb_color,
+  $hardware_decoder        = $kiosk_minimal::params::hardware_decoder,
+  $av_sync                 = $kiosk_minimal::params::av_sync,
+  $vd_threads              = $kiosk_minimal::params::vd_threads,
+  $fullscreen              = $kiosk_minimal::params::fullscreen,
+  $volume                  = $kiosk_minimal::params::volume,
+  $tmpdir                  = $kiosk_minimal::params::tmpdir,
 )
  {
     # Install packages
@@ -27,7 +27,7 @@ class kiosk_minimal::video(
       ensure                => installed
     }
     # Make userdirs
-    file { $dirs:
+    file { $videodirs:
       ensure                => 'directory',
       require               => User['kiosk'],
       owner                 => 'kiosk',
