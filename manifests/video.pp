@@ -15,6 +15,7 @@ class kiosk_minimal::video(
   $vd_threads              = '0',
   $fullscreen              = 'yes',
   $volume                  = undef,
+  $audio_delay             = '0',
   $tmpdir                  = '/tmp/video',
 )
  {
