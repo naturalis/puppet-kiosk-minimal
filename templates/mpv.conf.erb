@@ -21,6 +21,9 @@
 #Keep syncing:
 <% if @av_sync != 'undef' %>video-sync=display-resample<% end %>
 
+#Audio delay:
+<% if @audio_delay != 'undef' %>audio-delay=<%= @audio_delay %><% end %>
+
 # Number of threads to use for decoding
 <% if @vd_threads != 'undef' %>vd-lavc-threads=<%= @vd_threads %><% end %>
 
