@@ -109,7 +109,7 @@ class kiosk_minimal(
     content               => template("kiosk_minimal/override.conf.erb"),
     require               => [User['kiosk'], File['/etc/systemd/system/getty@tty1.service.d']],
   }
-  if ($enable_remote == true) {
+  if $enable_remote {
     # setup remote user
       user { "stargazer":
         comment           => "stargazer user",
